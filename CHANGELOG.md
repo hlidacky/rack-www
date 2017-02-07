@@ -1,3 +1,12 @@
+## 2.3
+
+- relax rack version dependency so upgrade to Rails 5 is possible
+
+## 2.2
+
+- do not added SSL port to URL
+- forked from https://github.com/stjhimy/rack-www
+
 ## 2.1
 
 - Ignore rack-www when request host is an IP address

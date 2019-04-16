@@ -67,7 +67,15 @@ module Rack
     end
 
     def prepare_url(env)
-      scheme = env['rack.url_scheme']
+      # if you use (http://)hlidacky.cz in your browser there were first
+      # redirect to https, then to http://www.hlidacky.cz and then third
+      # on to https://www.hlidacky.cz - we want to do all at one
+      # and hopefully solve Safari redirect problems (it loads on the second reload)
+      if ENV['RAILS_ENV'].in?(["production", "staging"])
+        scheme = 'https'
+      else
+        scheme = env['rack.url_scheme']
+      end
       host, port, path, query_string = extract_host(env)
 
       if @redirect == true
